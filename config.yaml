@@ -1,0 +1,34 @@
+year: 2025
+
+posting_days:                # Haftalık yayın planı
+  - weekday: 0               # Pazartesi
+    owner: Bengü
+    slots: 2
+  - weekday: 2               # Çarşamba
+    owner: Seher
+    slots: 2
+  - weekday: 5               # Cumartesi
+    owner: Çağatay
+    slots: 3
+  # Gerekirse dördüncü gün ekle → sadece yeni satır
+
+topics:
+  AI/ML Development: 15
+  Backend Development: 11
+  Data Science: 6
+  Frontend Development: 8
+  Huawei Cloud: 6
+  Mobile Development: 9
+  Game Development: 1
+  Huawei Mobile Service: 1
+  Software Community Management: 2
+
+special_rules:
+  backend_ai_alternation: true        # B ⇄ A
+  month_end_bundle:
+    order:                            # Sırayla slot 1-2-3
+      - Game Development
+      - Huawei Mobile Service
+      - Software Community Management
+    scm_rotation: 2                   # ayda dönüşüm periyodu
+holidays_file: data/holidays_tr.csv   # Yıl bazlı tatil dosyası
