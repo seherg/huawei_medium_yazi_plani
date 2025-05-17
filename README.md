@@ -1,28 +1,49 @@
-# Medium Yazı Paylaşım Çizelgesi Oluşturucu (Düzeltilmiş)
+# Medium Yazı Paylaşım Çizelgesi Oluşturucu
+Bu projeyi, Huawei Türkiye’de Medium yazı direktör yardımcılığı görevim kapsamında geliştirdim. 60’tan fazla yazarın haftalık içerik takibini manuel yapmak hem vakit alıcı hem de hataya çok açıktı. Bu nedenle kısıtlı optimizasyon yaklaşımı ile çalışan, esnek ve dinamik bir sistem tasarladım.
 
-Bu proje, belirli kısıtlar altında Medium için optimum yazı paylaşım çizelgesi oluşturmayı amaçlar.
+Amacım; paylaşım günlerine, konu dönüşümlerine, özel tarihlere ve yazar dengelerine uygun adil ve sürdürülebilir bir yazı paylaşım çizelgesi oluşturmaktı. Şimdi sadece config.yaml dosyasını değiştirerek farklı yıllar için otomatik takvimler üretilebiliyorum.
+## Ne işe yarar?
+| İhtiyaç                          | Nasıl Çözer?                                                     |
+| -------------------------------- | ---------------------------------------------------------------- |
+| Haftada kim kaç yazı girsin?     | `posting_days` listesine gün / yazar / slot yaz → otomatik plan. |
+| Backend & AI sırayla gitsin      | Kurala gömülü; ilk slotlar sürekli B → A → B → A…                |
+| Ay sonu özel içerik              | Son Cumartesi: **Game ⇢ HMS ⇢ SCM** üçlü paket ekler.            |
+| SCM’de 2 yazar dönüşsün          | `scm_rotation` kadar ayda bir otomatik değiştirir.               |
+| Tatil / sınav haftası çakışmasın | Tatil CSV’sindeki günler takvimden silinir.                      |
+| Yazarlar adil dağılsın           | “En uzun süredir yazmayan yazar” kuralı.                         |
+| Çok sekmeli Excel                | Tüm Çizelge + kişi sekmeleri + Ay 1-12 + Yazar-Konular.          |
 
-## Kısıtlar
+![image](https://github.com/user-attachments/assets/05081ac7-2196-4a4a-9b70-68ef9454bb50)
+
+## 🔒 Kısıtlar
 
 1. **Haftalık Paylaşım Programı**:
    - Pazartesi: Bengü - 2 yazı
-   - Çarşamba: Siz - 2 yazı
+   - Çarşamba: Ben (Seher) - 2 yazı
    - Cumartesi: Çağatay - 3 yazı
 
 2. **Konu Dönüşümü**:
    - Backend ve AI konuları dönüşümlü olmalı
    - Örneğin: Pazartesi Backend → Çarşamba AI → Cumartesi Backend → Sonraki Pazartesi AI...
 
-3. **Yazar Dağılımı** (toplam 60 yazar):
-   - AI/ML Development: 15 yazar
-   - Backend Development: 11 yazar
-   - Data Science: 6 yazar
-   - Frontend Development: 8 yazar
-   - Huawei Cloud: 6 yazar
-   - Mobil Development: 9 yazar
-   - Game Development: 1 yazar
-   - Huawei Mobil Service: 1 yazar
-   - Software Community Management: 2 yazar
+3. **Yazar Dağılımı 👥** (toplam 60 yazar):
+      🧠 AI/ML Development: 15
+      
+      🔧 Backend Development: 11
+      
+      📊 Data Science: 6
+      
+      🎨 Frontend Development: 8
+      
+      ☁️ Huawei Cloud: 6
+      
+      📱 Mobil Development: 9
+      
+      🎮 Game Development: 1
+      
+      📲 Huawei Mobil Service: 1
+      
+      🌐 Software Community Management: 2
 
 4. **Özel Kısıtlar**:
    - Game Development, Huawei Mobil Service ve Software Community Management konuları her ayın sonunda bir kez yazılmalı
@@ -32,10 +53,10 @@ Bu proje, belirli kısıtlar altında Medium için optimum yazı paylaşım çiz
    - Türkiye'deki resmi tatiller
    - Fırat Üniversitesi vize ve final haftaları
 
-## Proje Yapısı
+## 📂 Proje Yapısı
 
 ```
-medium_scheduler/
+huawei_medium_yazi_plani/
 ├── main.py                   # Ana program
 ├── data/
 │   └── holidays_2025_tr.csv  # Tatil günleri verileri
@@ -49,20 +70,6 @@ medium_scheduler/
 │   └── scheduler.py          # Çizelgeleyici sınıf
 └── README.md                 # Bu dosya
 ```
-
-## Düzeltilen Sorunlar
-
-Bu güncellenmiş versiyonda aşağıdaki sorunlar çözülmüştür:
-
-1. **Backend ve AI Dönüşümü**: Artık Backend ve AI konuları sırasıyla ve kesintisiz olarak dönüşümlü atanmaktadır.
-
-2. **Post Numaraları**: Her gün için post numaraları 1'den başlayarak sıralı şekilde atanmıştır.
-
-3. **Özel Konular**: Game Development, Huawei Mobil Service ve Software Community Management konuları her ayın son cumartesi gününde düzenli olarak atanmaktadır.
-
-4. **Yazar Atama**: Özel konular için özel yazarlar atanmış ve Software Community Management için 2 yazarın dönüşümlü olarak seçilmesi sağlanmıştır.
-
-5. **Tatil Günleri**: Tatil günlerinde paylaşım yapılmaması için kontrol eklenmiştir.
 
 ## Kurulum ve Çalıştırma
 
@@ -90,10 +97,15 @@ Bu güncellenmiş versiyonda aşağıdaki sorunlar çözülmüştür:
 ## Örnek Çıktı
 
 Bu projede oluşturulan çizelge, aşağıdaki formatta olacaktır:
+![image](https://github.com/user-attachments/assets/b2888486-2953-42d1-af7a-9a6b0cf71d1f)
 
-| Tarih      | Gün       | Sorumlu | Konu                     | Yazar      | Yazı No |
-|------------|-----------|---------|--------------------------|------------|---------|
-| 2025-01-06 | Pazartesi | Bengü   | Backend Development      | Yazar11    | 1       |
-| 2025-01-06 | Pazartesi | Bengü   | Frontend Development     | Yazar27    | 2       |
-| 2025-01-08 | Çarşamba  | Siz     | AI/ML Development        | Yazar3     | 1       |
-| ...        | ...       | ...     | ...                      | ...        | ...     |
+![image](https://github.com/user-attachments/assets/f3be8f2f-2969-4ea3-8c07-262902758fdc)
+
+## Excel Sekmeleri
+| Sekme adı                   | İçerik                |
+| --------------------------- | --------------------- |
+| **Tüm Çizelge**             | Yıllık tam liste      |
+| **Bengü / Seher / Çağatay** | Kişiye göre filtre    |
+| **Ay 1 … Ay 12**            | Aylık filtre          |
+| **Yazar-Konular**           | Yazar → Konu haritası |
+
