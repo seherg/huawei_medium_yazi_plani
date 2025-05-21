@@ -35,7 +35,7 @@ def load_holidays(filepath: str,
 def create_sample_holidays(filepath: str, year: int):
     """
     Basit, yıl-bağımlı bir örnek tatil dosyası üretir.
-    Gerçek projede her yıl için resmi listeyi ayrı CSV olarak eklemen önerilir.
+    Gerçek projede her yıl için resmi listeyi ayrı CSV olarak ekleyebilirsiniz.
     """
     # Örnek: sadece 4 ana resmî gün + 2 final/vize aralığı
     sample = {
@@ -66,7 +66,7 @@ def create_sample_holidays(filepath: str, year: int):
     }
 
     os.makedirs(os.path.dirname(filepath), exist_ok=True)
-    pd.DataFrame(sample).to_csv(filepath, index=False)
+    pd.DataFrame(sample).to_csv(filepath, index=False, encoding="utf-8-sig")
     print(f"⚠  Örnek tatil dosyası oluşturuldu: {filepath}")
     
 def export_to_excel(schedule, output_path, topic_writers=None):
